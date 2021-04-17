@@ -1,0 +1,7 @@
+{
+    "crop.remaining-days": "距成熟还有 {{daysCount}} 天!",
+	"crop.remaining-day": "距成熟还有 {{daysCount}} 天!",
+    "crop.ready": "可以收获了!",
+	"crop.is-dead": "作物枯萎了!",
+    "crop.not-hovered": "鼠标未停留在农作物上..."
+}

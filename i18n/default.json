@@ -1,0 +1,7 @@
+{
+    "crop.remaining-days": "{{daysCount}} days remaining before the harvest!",
+	"crop.remaining-day": "{{daysCount}} day remaining before the harvest!",
+    "crop.ready": "Crop can be harvested!",
+    "crop.is-dead": "Is dead!",
+    "crop.not-hovered": "Your cursor is not upon a crop..."
+}

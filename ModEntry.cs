@@ -24,6 +24,7 @@ namespace CropTimerTooltip
         private Vector2 prev_cursor_tile = new Vector2(-1f, -1f);
         private SpriteFont text_box_font = Game1.smallFont;
         private int text_box_height = 60;
+        private IModHelper helper;
 
         private readonly HashSet<int> wild_seed_indices = new HashSet<int>
             {16, 18, 20, 22, 396, 398, 402, 404, 406, 408, 410, 412, 414, 416, 418};
@@ -32,6 +33,7 @@ namespace CropTimerTooltip
 
         public override void Entry(IModHelper helper)
         {
+            this.helper = helper;
             var sclModConfig = helper.ReadConfig<SCLModConfig>();
             mouse_hover = sclModConfig.mouse_hover;
             work_everywhere = sclModConfig.work_everywhere;
@@ -288,16 +290,16 @@ namespace CropTimerTooltip
                 daysLeftToGrow = 0;
             //Monitor.Log(string.Format("End of the Month: {0} ... Days Left To Grow: {1} ... can harvest: {2} ", daysUntilSeasonEnds, daysLeftToGrow, daysLeftToGrow <= daysUntilSeasonEnds), (LogLevel)1);
             if (crop.dead.Value)
-                cropName.Add("Is dead!");
+                cropName.Add(helper.Translation.Get("crop.is-dead"));
             else if (daysLeftToGrow == 0)
-                cropName.Add("Ready to harvest!");
+                cropName.Add(helper.Translation.Get("crop.ready"));
             else
-                cropName.Add(string.Format("Harvest in {0} {1}", daysLeftToGrow, daysLeftToGrow != 1 ? "days" : "day"));
+                cropName.Add(daysLeftToGrow != 1 ? helper.Translation.Get("crop.remaining-days", new { daysCount = daysLeftToGrow }) : helper.Translation.Get("crop.remaining-day", new { daysCount = daysLeftToGrow }));
 
             if (daysLeftToGrow == 0)
-                return string.Format("Ready to harvest!");
+                return string.Format(helper.Translation.Get("crop.ready"));
             else
-                return string.Format("Harvest in {0} {1}", daysLeftToGrow, daysLeftToGrow != 1 ? "days" : "day");
+                return string.Format(daysLeftToGrow != 1 ? helper.Translation.Get("crop.remaining-days", new { daysCount = daysLeftToGrow }) : helper.Translation.Get("crop.remaining-day", new { daysCount = daysLeftToGrow }));
         }
 
         private string CropIndexToName(int some_index)
